@@ -10,13 +10,13 @@ import pymysql
 import os
 import smtplib
 
+#mailและpasswordเรา
+EMAIL_ADDRESS = "earthprimo@gmail.com" 
+EMAIL_PASSWORD = "ใส่พาสเวิร์ด"
 
-EMAIL_ADDRESS = "earthprimo@gmail.com"
-EMAIL_PASSWORD = "vigilante008"
-
-EMAIL_RECIEVER = "earthprimo@gmail.com"
-subject = "คุณได้สั่งซื้อสินค้าผ่านเว็บ Ordamental Fish Platform"
-body = "Hell Yeah"
+EMAIL_RECIEVER = "earthprimo@gmail.com" #ผู้รับ
+subject = "คุณได้สั่งซื้อสินค้าผ่านเว็บ Ordamental Fish Platform" #หัวเรื่อง
+body = "Hell Yeah" #เนื้อหา
 
 
 app = Flask(__name__)
@@ -51,10 +51,12 @@ def sendmail():
     message['from']=os.environ.get('') #ผู้ส่ง?
     message['to']=EMAIL_RECIEVER #ผู้รับ
     message.set_content(count) #เนื้อหา
+    html_message = open('mail.html').read()
+    message.add_alternative(html_message, subtype='html')
     with smtplib.SMTP_SSL("smtp.gmail.com", 465)as smtp:
         smtp.login(EMAIL_ADDRESS,EMAIL_PASSWORD) #อีเมล,รหัสเมลเรา
         smtp.send_message(message) #ส่งเมล
-    
+
 
     return render_template("home.html") 
  
