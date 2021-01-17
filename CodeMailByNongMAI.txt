@@ -1,0 +1,23 @@
+const nodemailer = require('nodemailer');
+
+const transporter = nodemailer.createTransport({
+    service: 'hotmail',
+    auth: {
+      user: 'yourmail@hotmail.com', // your email
+      pass: 'password' // your email password
+    }
+  });
+
+  let mailOptions = {
+    from: 'sender@hotmail.com',                // sender
+    to: 'receiver@hotmail.com',                // list of receivers
+    subject: 'Hello from sender',              // Mail subject
+    text: '<b>Do you receive this mail?</b>'   // text body
+  };
+
+  transporter.sendMail(mailOptions, function (err, info) {
+   if(err)
+     console.log(err)
+   else
+     console.log(info);
+});
